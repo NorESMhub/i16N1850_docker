@@ -1,0 +1,34 @@
+# Intel license file (mandatory to use intel compilers)
+
+export INTEL_LICENSE_FILE=/home/centos/intel_license/license.lic
+
+# Number of core per node
+export CESM_PES=16
+
+sed -i -e "s/\$CESM_PES/$CESM_PES/g" /home/centos/.cime/config_machines.xml
+
+cd /home/centos/packages/noresm-dev
+
+cd cime/scripts
+
+./create_newcase --case /home/centos/cases/i16N1850  --compset N1850 --res f19_tn14 --machine espresso_intel --run-unsupported
+
+cd /home/centos/cases/i16N1850
+
+NUMNODES=-2
+./xmlchange --file env_mach_pes.xml --id NTASKS --val ${NUMNODES}
+./xmlchange --file env_mach_pes.xml --id NTASKS_ESP --val 1
+./case.setup
+
+# Customize run
+cat >> user_nl_cam << EOF
+nhtfrq(1) = -24
+EOF
+
+# Build and run
+./case.build
+./case.submit
+
+mkdir -p /home/centos/archive/cases
+
+cp -R /home/centos/cases/i16N1850 /home/centos/archive/cases/.

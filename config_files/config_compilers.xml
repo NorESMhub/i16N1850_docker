@@ -1,0 +1,29 @@
+
+nfig_compilers version="2.0">
+
+  <compiler COMPILER="intel" MACH="espresso_intel" >
+    <CPPDEFS>
+     <append> -DLINUX </append>
+    </CPPDEFS>
+    <FFLAGS>
+     <append> -xCORE-AVX2 -no-fma </append>
+    </FFLAGS>
+    <NETCDF_PATH>/home/centos/packages/netcdf/4.7.2-centos7-intel2018a</NETCDF_PATH>
+    <FFLAGS>
+      <append DEBUG="FALSE"> -O2 </append>
+      <append MODEL="micom"> -r8 </append>
+      <append MODEL="cam"> -init=zero,arrays </append>
+    </FFLAGS>
+    <SFC> ifort </SFC>
+    <SCC> icc </SCC>
+    <SCXX> icpc </SCXX>
+    <MPICC> mpiicc </MPICC>
+    <MPICXX> mpiicpc </MPICXX>
+    <MPIFC> mpiifort </MPIFC>
+    <SLIBS>
+      <append> -L$(NETCDF_PATH)/lib -lnetcdff -lnetcdf -ldl </append>
+      <append> -mkl=sequential -lnetcdff -lnetcdf </append>
+    </SLIBS>
+  </compiler>
+
+</config_compilers>
