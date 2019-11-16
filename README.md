@@ -23,6 +23,114 @@ sed -i.bak 's/print /#AF print /' noresm-dev/cime/scripts/Tools/../../scripts/li
 
 The NorESM source code is then passed to the docker container for running norESM.
 
+### netCDF libraries compiled with intel compilers
+
+#### Intel Compilers
+
+We installed Intel studio 2018a at `/home/centos/packages/intel` and compiled them with the default GNU Compilers 4.8.5.
+
+```
+tar xvf parallel_studio_xe_2018_update1_cluster_edition.tgz
+cd parallel_studio_xe_2018_update1_cluster_edition
+sudo ./install.sh
+```
+
+- Install it at `/home/centos/packages/intel`
+- Keep from 7 to 14
+
+#### Installation of zlib, hdf5 and netcdf with Intel compilers
+
+**Installation path**
+
+```
+source /home/centos/packages/intel/parallel_studio_xe_2018.1.038/bin/psxevars.sh
+
+export PREFIX=/home/centos/packages
+export ZLIB_HOME=$PREFIX/zlib/1.2.11-centos7-intel2018a
+export HDF5_HOME=$PREFIX/hdf5/1.10.5-centos7-intel2018a
+export NETCDF_HOME=$PREFIX/netcdf/4.7.2-centos7-intel2018a
+```
+
+**zlib**
+
+```
+cd /opt/uio/src/
+
+wget https://www.zlib.net/zlib-1.2.11.tar.gz
+tar xvf zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+CC=icc CXX=icpc F77=ifort FC=ifort ./configure --prefix=$ZLIB_HOME
+make
+make install
+cd ..
+```
+
+**hdf5**
+
+```
+wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.5/src/hdf5-1.10.5.tar.gz
+tar xvf hdf5-1.10.5.tar.gz
+cd hdf5-1.10.5
+CC=mpiicc CXX=mpiicpc FC=mpiifort ./configure --with-zlib=$ZLIB_HOME --prefix=$HDF5_HOME --enable-fortran --enable-parallel
+make -j16
+make install
+```
+
+
+**netCDF**
+
+Then make sure you set-up your environment before compiling netCDF:
+
+```
+export PATH=$HDF5_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$HDF5_HOME/lib:$LD_LIBRARY_PATH
+```
+
+And then install netCDF.
+
+**netCDF-C**
+
+```
+wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.7.2.tar.gz
+tar xvf netcdf-c-4.7.2.tar.gz
+cd netcdf-c-4.7.2
+CC=mpiicc CXX=mpiicpc FC=mpiifort CPPFLAGS="-I$HDF5_HOME/include -I$ZLIB_HOME/include" LDFLAGS="-L$HDF5_HOME/lib -L$ZLIB_HOME/lib" ./configure prefix=$NETCDF_HOME --enable-netcdf4 --disable-dap
+make
+make install
+cd ..
+```
+
+**netCDF-Fortran**
+
+```
+export PATH=$NETCDF_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$NETCDF_HOME/lib:$LD_LIBRARY_PATH
+
+wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-fortran-4.5.2.tar.gz
+tar xvf netcdf-fortran-4.5.2.tar.gz
+cd netcdf-fortran-4.5.2
+CC=mpiicc CXX=mpiicpc FC=mpiifort CPPFLAGS="-I$NETCDF_HOME/include" LDFLAGS="-L$NETCDF_HOME/lib" ./configure --prefix=$NETCDF_HOME
+make
+make install
+```
+
+
+Finally create an initialization file you can use for setting up your environment for compiling and running norESM:
+
+```
+cat > /home/centos/packages/esm.sh << EOF
+source /home/centos/packages/intel/parallel_studio_xe_2018.1.038/bin/psxevars.sh
+export PATH=/home/centos/packages/netcdf/4.7.2-centos7-intel2018a/bin:$PATH
+export LD_LIBRARY_PATH=/home/centos/packages/netcdf/4.7.2-centos7-intel2018a/lib:$LD_LIBRARY_PATH
+EOF
+```
+
+To use  `esmf.sh`:
+
+```
+. /home/centos/packages/esm.sh
+```
+
 ### NorESM docker
 
 Make sure inputdata and norESM source code are available (it won't download them as we suppose they both are already on disk). 
