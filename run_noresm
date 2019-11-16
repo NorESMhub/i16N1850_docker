@@ -2,6 +2,10 @@
 
 export INTEL_LICENSE_FILE=/home/centos/intel_license/license.lic
 
+# set-up intel compiler environment
+
+. /home/centos/packages/esm.sh
+
 # Number of core per node
 export CESM_PES=16
 
