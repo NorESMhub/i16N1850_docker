@@ -32,8 +32,6 @@ RUN mkdir -p /home/centos/.cime \
              /home/centos/cases 
 
 COPY config_files/* /home/centos/.cime/
-COPY packages/* /home/centos/packages/
-COPY license.lic /home/centos/intel_license/.
 
 ENV AR=ar
 
@@ -45,5 +43,5 @@ COPY run_noresm /home/centos/
 
 #ENTRYPOINT ./run_noresm
 
-CMD ["/bin/bash"]
+CMD ["/home/centos/run_noresm"]
 
