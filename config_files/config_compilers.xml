@@ -6,9 +6,6 @@
     <CPPDEFS>
      <append> -DLINUX </append>
     </CPPDEFS>
-    <FFLAGS>
-     <append> -xCORE-AVX2 -no-fma </append>
-    </FFLAGS>
     <NETCDF_PATH>/home/centos/packages/netcdf/4.7.2-centos7-intel2018a</NETCDF_PATH>
     <FFLAGS>
       <append DEBUG="FALSE"> -O2 </append>
