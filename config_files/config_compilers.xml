@@ -1,5 +1,6 @@
+<?xml version="1.0"?>
 
-nfig_compilers version="2.0">
+<config_compilers version="2.0">
 
   <compiler COMPILER="intel" MACH="espresso_intel" >
     <CPPDEFS>
