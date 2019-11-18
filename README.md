@@ -2,9 +2,9 @@
 
 NorESM fully coupled run with N1850 compset and f19_tn14 resolution.
 
-- Input dataset is stored and available in zenodo (??GB)
+- Input dataset is stored and available in zenodo (7GB)
 
-TO BE ADDED ONCE WE HAVE ALL DATASETS (ocean missing...).
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3544882.svg)](https://doi.org/10.5281/zenodo.3544882)
 
 ## Running NorESM fully coupled N1850 f19_tn14 with docker
 
