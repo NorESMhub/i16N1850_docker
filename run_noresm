@@ -24,6 +24,8 @@ cd /home/centos/cases/i16N1850
 NUMNODES=-2
 ./xmlchange --file env_mach_pes.xml --id NTASKS --val ${NUMNODES}
 ./xmlchange --file env_mach_pes.xml --id NTASKS_ESP --val 1
+./xmlchange --file env_mach_pes.xml --id ROOTPE --val 0
+
 ./case.setup
 
 # Customize run
