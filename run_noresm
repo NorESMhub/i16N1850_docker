@@ -9,7 +9,7 @@ export INTEL_LICENSE_FILE=/home/centos/intel_license/license.lic
 . /home/centos/packages/esm.sh
 
 # Number of core per node
-export CESM_PES=8
+export CESM_PES=16
 
 sed -i -e "s/\$CESM_PES/$CESM_PES/g" /home/centos/.cime/config_machines.xml
 
