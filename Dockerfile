@@ -41,7 +41,6 @@ WORKDIR /home/centos
 
 COPY run_noresm /home/centos/
 
-#ENTRYPOINT ./run_noresm
+#CMD ["/home/centos/run_noresm"]
 
-CMD ["/home/centos/run_noresm"]
-
+CMD ["/bin/bash"]
