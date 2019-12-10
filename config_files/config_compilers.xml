@@ -4,14 +4,18 @@
 
   <compiler COMPILER="intel" MACH="espresso_intel" >
     <CPPDEFS>
-     <append> -DLINUX </append>
+     <append> -D$(OS) </append>
     </CPPDEFS>
     <NETCDF_PATH>/home/centos/packages/netcdf/4.7.2-centos7-intel2018a</NETCDF_PATH>
     <FFLAGS>
-      <append DEBUG="FALSE"> -O2 </append>
+      <append> -xCORE-AVX2 -no-fma </append>
+      <append DEBUG="FALSE"> -O2 -mcmodel=medium </append>
       <append MODEL="micom"> -r8 </append>
       <append MODEL="cam"> -init=zero,arrays </append>
     </FFLAGS>
+    <CFLAGS>
+      <append DEBUG="FALSE"> -mcmodel=medium </append>
+    </CFLAGS>
     <SFC> ifort </SFC>
     <SCC> icc </SCC>
     <SCXX> icpc </SCXX>
