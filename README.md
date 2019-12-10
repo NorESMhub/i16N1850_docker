@@ -169,11 +169,11 @@ docker run --shm-size 8G -i -v /opt/uio/inputdata:/home/centos/inputdata -v /opt
 
 - We are running 5 days using a virtual machine with 16 Intel Core Processors (Haswell, no TSX)
 
-### Timing profile
+### Timing profile - Overall Metrics:
 
-  Overall Metrics:
-    Model Cost:            1005.67   pe-hrs/simulated_year
-    Model Throughput:         0.38   simulated_years/day
+**Model Cost:            1005.67   pe-hrs/simulated_year**
+
+Model Throughput:         0.38   simulated_years/day
 
     Init Time   :     128.519 seconds
     Run Time    :    3099.668 seconds      619.934 seconds/day
