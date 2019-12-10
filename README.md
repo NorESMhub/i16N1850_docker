@@ -162,9 +162,9 @@ drwxrwxr-x.  8 centos users        4096 Nov  9 15:21 archive
 
 ```
 docker pull nordicesmhub/noresm_i16n1850:latest
-docker run -i -v /opt/uio/inputdata:/home/centos/inputdata -v /opt/uio/archive:/home/centos/archive \
-              -v /opt/uio/packages:/home/centos/packages  -v /opt/uio/license.lic:/home/centos/intel_license/license.lic \
-              -t nordicesmhub/noresm_i16n1850:latest
+docker run --shm-size 8G -i -v /opt/uio/inputdata:/home/centos/inputdata -v /opt/uio/archive:/home/centos/archive \
+                            -v /opt/uio/packages:/home/centos/packages  -v /opt/uio/license.lic:/home/centos/intel_license/license.lic \
+                            -t nordicesmhub/noresm_i16n1850:latest
 ```
 
 - We are running 5 days using 16 processors. 
