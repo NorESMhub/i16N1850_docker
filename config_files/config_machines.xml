@@ -27,7 +27,7 @@
     <MAX_MPITASKS_PER_NODE>$CESM_PES</MAX_MPITASKS_PER_NODE>
     <PROJECT_REQUIRED>FALSE</PROJECT_REQUIRED>
     <mpirun mpilib="default">
-      <executable>mpiexec</executable>
+      <executable>mpirun</executable>
       <arguments>
         <arg name="anum_tasks"> -np $TOTALPES </arg>
       </arguments>
