@@ -12,9 +12,7 @@ LABEL autogen="no" \
       
 MAINTAINER Anne Fouilloux <annefou@geo.uio.no>
 
-RUN yum group install "Development Tools" -y && \
-    yum install wget cmake "perl(XML::LibXML)"  \
-    vim csh git subversion -y
+RUN yum install wget git perl-XML-LibXML vim csh cmake gcc gcc-c++ subversion -y
 
 ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8
