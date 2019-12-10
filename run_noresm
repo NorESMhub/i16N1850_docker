@@ -19,9 +19,11 @@ sed -i.bak 's/# ARCHIVE COMMAND SIMILAR ACROSS ALL PLATFORMS/AR="$AR cq"/' cime/
 
 cd cime/scripts
 
-./create_newcase --case /home/centos/cases/i16N1850  --compset N1850 --res f19_tn14 --machine espresso_intel --run-unsupported
+export casename='d16_intel2018.1_N1850_f19_tn14'
 
-cd /home/centos/cases/i16N1850
+./create_newcase --case /home/centos/cases/$casename  --compset N1850 --res f19_tn14 --machine espresso_intel --run-unsupported
+
+cd /home/centos/cases/$casename
 
 NUMNODES=-2
 ./xmlchange --file env_mach_pes.xml --id NTASKS --val ${NUMNODES}
@@ -35,10 +37,13 @@ cat >> user_nl_cam << EOF
 nhtfrq(1) = -24
 EOF
 
+./xmlchange STOP_N=5
+./xmlchange STOP_OPTION=ndays
+
 # Build and run
 ./case.build
 ./case.submit
 
 mkdir -p /home/centos/archive/cases
 
-cp -R /home/centos/cases/i16N1850 /home/centos/archive/cases/.
+cp -R /home/centos/cases/$casename /home/centos/archive/cases/.
